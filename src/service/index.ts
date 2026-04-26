@@ -1,7 +1,9 @@
-import  MyRequest from 'src/service/request/index';
-import { BASE_URL} from 'src/service/request/config'
+import  MyRequest from '@/service/request/index';
+import { BASE_URL, TIME_OUT } from '@/service/request/config'
 
 const myRequest = new MyRequest({
+  baseURL: BASE_URL,
+  timeout: TIME_OUT,
   MyRequsetInterceptor: {
     MyRequestInterceprtUseFunction: (config) => {
         console.log('实例请求拦截器触发，拦截成功')
@@ -21,3 +23,5 @@ const myRequest = new MyRequest({
     }
   }
 })
+
+export default myRequest;

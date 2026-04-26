@@ -12,4 +12,5 @@ export interface MyRequestInterceptor<T = InternalAxiosRequestConfig, R = AxiosR
 export interface MyRequestConfig extends AxiosRequestConfig {
   // 这里是自定义的扩展类型
   MyRequsetInterceptor?: MyRequestInterceptor;
+  showLoading?: boolean
 }
