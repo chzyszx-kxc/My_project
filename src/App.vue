@@ -1,5 +1,5 @@
 <template>
   <nav>
-    <el-button>Default</el-button>
+    <router-view></router-view>
   </nav>
 </template>

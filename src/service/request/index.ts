@@ -82,6 +82,18 @@ class MyRequest {
     })
   }
 
+  get(config: MyRequestConfig): Promise<any> {
+    return this.request({...config, method: 'GET'})
+  }
+  post(config: MyRequestConfig): Promise<any> {
+    return this.request({...config, method: 'POST'})
+  }
+  delete(config: MyRequestConfig): Promise<any> {
+    return this.request({...config, method: 'DELETE'})
+  }
+  patch(config: MyRequestConfig): Promise<any> {
+    return this.request({...config, method: 'patch'})
+  }
 }
 
 export default MyRequest;

@@ -1,11 +1,18 @@
 import { createStore } from "vuex";
+import login from './login/login'
 
 export default createStore({
   state() {
-    return {}
+    return {
+      name: 'coderwhy',
+      age: 18
+    }
   },
   getters: {},
-  mutations: {},
+  mutations: {
+  },
   actions: {},
-  modules: {},
+  modules: {
+    login
+  },
 });
