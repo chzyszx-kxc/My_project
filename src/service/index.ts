@@ -1,12 +1,17 @@
 import  MyRequest from '@/service/request/index';
 import { BASE_URL, TIME_OUT } from '@/service/request/config'
+import localCache from '@/utils/cache'
 
 const myRequest = new MyRequest({
   baseURL: BASE_URL,
   timeout: TIME_OUT,
   MyRequsetInterceptor: {
     MyRequestInterceprtUseFunction: (config) => {
-        console.log('实例请求拦截器触发，拦截成功')
+        console.log('实例请求拦截器触发，拦截成功');
+        const token = localCache.getCache('token');
+        if (token && config.headers) {
+          config.headers.Authorization = `Bearer ${token}`
+        }
         return config;
     },
     MyRequestInterceprtUseReject: (error: any ) => {

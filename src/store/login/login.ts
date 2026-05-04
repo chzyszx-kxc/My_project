@@ -2,7 +2,7 @@ import type { Module } from 'vuex';
 import { ILoginState } from "@/store/login/types";
 import { IRootState } from "@/store/types";
 import { IAccount, ILoginResult } from "@/service/login/types";
-import { accountLoginRequest } from "@/service/login/login";
+import { accountLoginRequest, requestUserInfoById, requestUserMenusByRoleId } from "@/service/login/login";
 import { IDataType } from "@/service/types";
 import LocalCache from "@/utils/cache";
 
@@ -19,6 +19,12 @@ const loginModule: Module<ILoginState, IRootState> = {
   mutations: {
     changeToken(state: ILoginState, token: string) {
       state.token = token
+    },
+    changeUserInfo(state, userInfo: any) {
+      state.userInfo = userInfo
+    },
+    changeUserMenus(state, userMenus: any) {
+      state.userMenus = userMenus
     }
   },
   actions: {
@@ -29,6 +35,17 @@ const loginModule: Module<ILoginState, IRootState> = {
       commit('changeToken', token)
       LocalCache.setCache('token', token)
 
+      // 2.请求用户菜单
+      const userInfoResult = await requestUserInfoById(id)
+      const userInfo = userInfoResult.data
+      commit('changeUserInfo', userInfo)
+      LocalCache.setCache('userInfo', userInfo)
+
+      // 3.请求用户菜单
+      const userMenusResult = await requestUserMenusByRoleId(userInfo.role.id)
+      const userMenus = userMenusResult.data
+      commit('changeUserMenus', userInfo)
+      LocalCache.setCache('userMenus', userMenus)
     }
   }
 }

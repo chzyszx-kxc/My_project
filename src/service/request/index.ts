@@ -59,13 +59,13 @@ class MyRequest {
     )
   }
 
-  request(config: MyRequestConfig): Promise<any> {
-    return new Promise((resolve, reject) => {
+  request<T>(config: MyRequestConfig): Promise<T> {
+    return new Promise<T>((resolve, reject) => {
         // 判断某个请求是否需要显示loading
         if (config.showLoading === false) {
           this.showLoading = config.showLoading;
         }
-        this.instance.request(config)
+        this.instance.request<any, T>(config)
           .then(res => {
             resolve(res);
           })
@@ -79,19 +79,20 @@ class MyRequest {
           })
     }).then((res) => {
       console.log('服务器回传部分内容：', res);
+      return res;
     })
   }
 
-  get(config: MyRequestConfig): Promise<any> {
+  get<T>(config: MyRequestConfig): Promise<T> {
     return this.request({...config, method: 'GET'})
   }
-  post(config: MyRequestConfig): Promise<any> {
+  post<T>(config: MyRequestConfig): Promise<T> {
     return this.request({...config, method: 'POST'})
   }
-  delete(config: MyRequestConfig): Promise<any> {
+  delete<T>(config: MyRequestConfig): Promise<T> {
     return this.request({...config, method: 'DELETE'})
   }
-  patch(config: MyRequestConfig): Promise<any> {
+  patch<T>(config: MyRequestConfig): Promise<T> {
     return this.request({...config, method: 'patch'})
   }
 }
