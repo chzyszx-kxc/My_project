@@ -5,7 +5,7 @@ import { IAccount, ILoginResult } from "@/service/login/types";
 import { accountLoginRequest, requestUserInfoById, requestUserMenusByRoleId } from "@/service/login/login";
 import { IDataType } from "@/service/types";
 import LocalCache from "@/utils/cache";
-import router from '@/router'
+// import router from '@/router'
 
 const loginModule: Module<ILoginState, IRootState> = {
   namespaced: true,
@@ -49,7 +49,7 @@ const loginModule: Module<ILoginState, IRootState> = {
       LocalCache.setCache('userMenus', userMenus)
 
       // 4.跳转到首页
-      router.push('/main')
+      // router.push('/main')
     }
   }
 }
