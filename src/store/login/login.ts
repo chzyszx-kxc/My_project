@@ -5,6 +5,7 @@ import { IAccount, ILoginResult } from "@/service/login/types";
 import { accountLoginRequest, requestUserInfoById, requestUserMenusByRoleId } from "@/service/login/login";
 import { IDataType } from "@/service/types";
 import LocalCache from "@/utils/cache";
+import router from '@/router'
 
 const loginModule: Module<ILoginState, IRootState> = {
   namespaced: true,
@@ -44,8 +45,11 @@ const loginModule: Module<ILoginState, IRootState> = {
       // 3.请求用户菜单
       const userMenusResult = await requestUserMenusByRoleId(userInfo.role.id)
       const userMenus = userMenusResult.data
-      commit('changeUserMenus', userInfo)
+      commit('changeUserMenus', userMenus)
       LocalCache.setCache('userMenus', userMenus)
+
+      // 4.跳转到首页
+      router.push('/main')
     }
   }
 }
