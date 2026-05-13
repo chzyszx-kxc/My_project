@@ -1,13 +1,31 @@
 <template>
-  <div>Main</div>
+  <div>
+    <el-container>
+      <el-aside>
+        <nav-menu :collapse="isCollapse" />
+      </el-aside>
+      <el-container>
+        <el-header>
+          <nav-header @fold-change="handleFoldChange"></nav-header>
+        </el-header>
+        <el-main>
+          <div>
+            <router-view></router-view>
+          </div>
+        </el-main>
+      </el-container>
+    </el-container>
+  </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
+import NavMenu from "@/components/nav-menu";
+import NavHeader from "@/components/nav-header";
+import { ref } from "vue";
 
-export default defineComponent({
-  setup() {
-    return;
-  },
-});
+const isCollapse = ref(false);
+
+const handleFoldChange = (isFold: boolean) => {
+  isCollapse.value = isFold;
+}
 </script>

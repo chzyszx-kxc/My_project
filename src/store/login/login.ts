@@ -5,7 +5,8 @@ import { IAccount, ILoginResult } from "@/service/login/types";
 import { accountLoginRequest, requestUserInfoById, requestUserMenusByRoleId } from "@/service/login/login";
 import { IDataType } from "@/service/types";
 import LocalCache from "@/utils/cache";
-// import router from '@/router'
+import router from '@/router'
+import { mapMenusToRoutes } from "@/utils/map-menus";
 
 const loginModule: Module<ILoginState, IRootState> = {
   namespaced: true,
@@ -25,7 +26,13 @@ const loginModule: Module<ILoginState, IRootState> = {
       state.userInfo = userInfo
     },
     changeUserMenus(state, userMenus: any) {
+      // 保存用户菜单
       state.userMenus = userMenus
+      // 将userMenus映射为routes
+      const  routes = mapMenusToRoutes(userMenus)
+      routes.forEach((route) => {
+        router.addRoute('main', route)
+      })
     }
   },
   actions: {
@@ -49,7 +56,7 @@ const loginModule: Module<ILoginState, IRootState> = {
       LocalCache.setCache('userMenus', userMenus)
 
       // 4.跳转到首页
-      // router.push('/main')
+      router.push('/main')
     }
   }
 }

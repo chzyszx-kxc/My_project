@@ -39,11 +39,11 @@ const loginAction = (isKeepPassword: boolean) => {
           localCache.deleteCache('name');
           localCache.deleteCache('password');
         }
+
+        // 开始登陆验证
+        store.dispatch('login/accountLoginAction', {...account})
+
       }
-
-      // 开始登陆验证
-      store.dispatch('login/accountLoginAction', {...account})
-
     })
 }
 
